@@ -17,7 +17,11 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 Route::get('/', 'PagesController@index');
-Route::get('/hello', function () {
-    // return view('welcome');
-    return "Hello world";
-});
+Route::get('/about', 'PagesController@about');
+Route::get('/services', 'PagesController@services');
+
+
+// Route::get('/hello', function () {
+//     // return view('welcome');
+//     return "Hello world";
+// });
