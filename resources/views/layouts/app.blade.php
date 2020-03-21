@@ -45,7 +45,10 @@
                     </ul>
 
                     <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">                      
+                    <ul class="navbar-nav ml-auto">    
+                        <li class="nav-item">
+                            <a class="nav-link" href="/posts">Blog</a>
+                        </li>                  
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
@@ -81,6 +84,7 @@
         </nav>
 
         <main class="py-4 container">
+            @include('inc.messages')
             @yield('content')
         </main>
     </div>
