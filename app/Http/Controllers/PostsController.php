@@ -17,7 +17,7 @@ class PostsController extends Controller
     {
         // $posts = Post::all();
         // $posts = DB::select('SELECT * FROM posts');
-        $posts = Post::orderby('id', 'desc')->get();
+        $posts = Post::latest()->get();
         return view('posts.index')->with('posts', $posts);
     }
 
@@ -39,18 +39,12 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
+        Post::create($request->validate([
             'title' => 'required',
             'body' => 'required'
-        ]);
-
-        $post = new Post;
-        $post->title = $request->input('title');
-        $post->body = $request->input('body');
-        $post->save();
+        ]));    
 
         return redirect('/posts')->with('success', 'Post created.');
-
     }
 
     /**
@@ -59,10 +53,8 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Post $post)
     {
-        $post = Post::find($id);
-
         return view('posts.show')->with('post', $post);
     }
 
