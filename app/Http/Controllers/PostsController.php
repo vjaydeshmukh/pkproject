@@ -3,12 +3,20 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Database\Eloquent\Collection;
 use App\Post;
 use DB;
 
 class PostsController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth', ['except' => ['index', 'show']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -18,7 +26,7 @@ class PostsController extends Controller
     {
         // $posts = Post::all();
         // $posts = DB::select('SELECT * FROM posts');
-        $posts = Post::orderby('id', 'desc')->paginate(5);
+        $posts = Post::orderby('id', 'desc')->get();
         return view('posts.index')->with('posts', $posts);
     }
 
@@ -40,11 +48,20 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
-        Post::create($request->validate([
+        // $post = Post::create($request->validate([
+        //     'title' => 'required',
+        //     'body' => 'required'
+        // ]));
+        $this->validate($request, [
             'title' => 'required',
             'body' => 'required'
-        ]));
+        ]);
+        $post = new Post();
 
+        $post->title = $request->input('title');
+        $post->body = $request->input('body');
+        $post->user_id = auth()->user()->id;
+        $post->save();
         return redirect('/posts')->with('success', 'Post created.');
     }
 
@@ -65,8 +82,13 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Post $post)
+    public function edit($id)
     {
+        $post = Post::find($id);
+        if (auth()->user()->id !== $post->user_id) {
+            return redirect('/posts')->with('error', "Unauthorized page.");
+        }
+
         return view('posts.edit')->with('post', $post);
     }
 

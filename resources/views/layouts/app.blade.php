@@ -69,6 +69,7 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a href="/home" class="dropdown-item">Profile</a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -86,6 +87,7 @@
             </div>
         </nav>
         <div class="container">
+            @include('inc.messages')
             <main class="py-4">
                 @yield('content')
             </main>
