@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Collection;
 use App\Post;
 use DB;
 
@@ -17,7 +18,7 @@ class PostsController extends Controller
     {
         // $posts = Post::all();
         // $posts = DB::select('SELECT * FROM posts');
-        $posts = Post::latest()->get();
+        $posts = Post::orderby('id', 'desc')->paginate(5);
         return view('posts.index')->with('posts', $posts);
     }
 
@@ -42,7 +43,7 @@ class PostsController extends Controller
         Post::create($request->validate([
             'title' => 'required',
             'body' => 'required'
-        ]));    
+        ]));
 
         return redirect('/posts')->with('success', 'Post created.');
     }
@@ -64,9 +65,9 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Post $post)
     {
-        //
+        return view('posts.edit')->with('post', $post);
     }
 
     /**
@@ -78,7 +79,12 @@ class PostsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        Post::find($id, $request->validate([
+            'title' => 'required',
+            'body' => 'required'
+        ]));
+
+        return redirect('/posts')->with('success', 'Post updated.');
     }
 
     /**

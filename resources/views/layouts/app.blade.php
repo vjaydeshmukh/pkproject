@@ -34,6 +34,13 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
+                            <a class="nav-link" href="/posts/create">Add Post</a>
+                        </li>
+                    </ul>
+
+                    <!-- Right Side Of Navbar -->
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
                             <a class="nav-link" href="/">Home</a>
                         </li>
                         <li class="nav-item">
@@ -41,11 +48,7 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="/about">About</a>
-                        </li>
-                    </ul>
-
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ml-auto">    
+                        </li>    
                         <li class="nav-item">
                             <a class="nav-link" href="/posts">Blog</a>
                         </li>                  
