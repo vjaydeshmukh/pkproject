@@ -21,7 +21,7 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-inverse shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
@@ -51,7 +51,7 @@
                         </li>    
                         <li class="nav-item">
                             <a class="nav-link" href="/posts">Blog</a>
-                        </li>                  
+                        </li>  
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
@@ -85,11 +85,11 @@
                 </div>
             </div>
         </nav>
-
-        <main class="py-4 container">
-            @include('inc.messages')
-            @yield('content')
-        </main>
+        <div class="container">
+            <main class="py-4">
+                @yield('content')
+            </main>
+        </div>
     </div>
 </body>
 </html>
